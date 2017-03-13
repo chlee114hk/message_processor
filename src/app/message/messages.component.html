@@ -1,0 +1,64 @@
+<div class="container-fluid">
+  <H1>Message Processor</H1>
+  <div class="row">
+
+    <div class="col-sm-4">
+      <md-card (click)="changeProcessState(false)" >
+          <md-card-content>
+            <p>
+              Unprocessed: {{ messages.length - processedCount() }}
+            </p>
+        </md-card-content>
+      </md-card>
+    </div>
+
+    <div class="col-sm-4">
+      <md-card (click)="changeProcessState(true)">
+          <md-card-content>
+            <p>
+              Processed: {{ processedCount() }}
+            </p>
+        </md-card-content>
+      </md-card>
+    </div>
+
+    <div class="col-sm-4">
+      <md-card>
+          <md-card-content>
+            <p>
+              Total: {{ messages.length }}
+            </p>
+        </md-card-content>
+      </md-card>
+    </div>
+
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="message-list">
+        <li *ngFor="let message of messages | processed: processState | slice:0:5"
+          [class.selected]="message === selectedMessage"
+          (click)="onSelect(message)"
+        >
+          <div class="view">
+            <label>Message to {{message.name}}</label>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div *ngIf="selectedMessage">
+        <message-detail [message]="selectedMessage"></message-detail>
+      </div>
+    </div>
+  </div>
+
+</div>

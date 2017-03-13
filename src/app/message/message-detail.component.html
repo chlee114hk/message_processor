@@ -1,0 +1,71 @@
+<div *ngIf="message.type == 'BirthdayMessage'" class="row">
+  <div class="col-sm-6">
+    <form>
+      <md-select placeholder="Gift" [(ngModel)]="message.gift" name="gift">
+        <md-option *ngFor="let gift of gifts" [value]="gift.title">
+          {{gift.title}}
+        </md-option>
+      </md-select>
+    </form>
+    <br/>
+
+    <md-card class="example-card" *ngIf="message.gift">
+      <md-card-header>
+        <div md-card-avatar class="example-header-image"></div>
+        <md-card-title>{{selectedGift(message.gift).title}}</md-card-title>
+      </md-card-header>
+      <img md-card-image [src]="selectedGift(message.gift).image">
+      <md-card-content>
+        {{selectedGift(message.gift).description}}
+      </md-card-content>
+    </md-card>
+
+    <br/>
+    <div>
+      <button md-raised-button (click)="saveMessage(message)" [disabled]="!message.gift">Save</button>
+    </div>
+  </div>
+
+  <div *ngIf="message.gift" class="col-sm-6 message-box">
+    <span>
+      To {{message.name}},
+    </span>
+    <br/><br/>
+    <span>
+      Mate, Happy Birthday.
+      To celebrate this once a year occasion
+      we have picked the following gift: {{message.gift}}.
+      Enjoy.
+    </span>
+  </div>
+
+</div>
+
+<div *ngIf="message.type == 'ChildBirthMessage'" class="row">
+  <div class="col-sm-6">
+    <form>
+      <md-input-container>
+        <input mdInput placeholder="Babyname" [mdAutocomplete]="auto" [formControl]="nameCtrl" [(ngModel)]="message.babyname" name="babyname">
+      </md-input-container>
+      <md-autocomplete #auto="mdAutocomplete">
+        <md-option *ngFor="let name of filteredNames | async" [value]="name">
+          {{ name }}
+        </md-option>
+      </md-autocomplete>
+      <md2-datepicker placeholder="Birthdate" max="today" [(ngModel)]="message.birthdate" name="birhtdate"></md2-datepicker>
+    </form>
+    <div>
+      <button md-raised-button (click)="saveMessage(message)" [disabled]="!message.babyname && !message.birthdate">Save</button>
+    </div>
+  </div>
+
+  <div *ngIf="message.babyname && message.birthdate" class="col-sm-6 message-box">
+    <span>
+      To {{message.name}},
+    </span>
+    <br/><br/>
+    <span>
+      Whooa well done and congratulations on the birth of {{message.babyname}} on {{message.birthdate | date: 'dd/MM/yyyy'}}.
+    </span>
+  </div>
+</div>

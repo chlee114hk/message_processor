@@ -1,0 +1,36 @@
+.message-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.message-list li {
+	cursor: pointer;
+	position: relative;
+	font-size: 24px;
+	background-color: #EEE;
+  margin: .5em;
+  padding: 10px;
+  height: 2em;
+  border-radius: 4px;
+}
+
+.selected {
+  background-color: #CFD8DC !important;
+  color: white;
+}
+
+.message-list li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}
+.message-list li.selected:hover {
+  background-color: #BBD8DC !important;
+  color: white;
+}
+
+md-card p{
+	font-size: 24px;
+	text-align: center;
+}
